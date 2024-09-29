@@ -60,20 +60,20 @@ services:
       - custommysql
       - eureka
 
-#  gateway:
-#    #    image: gateway
-#    build: ./gateway_service
-#    container_name: gateway
-#    ports:
-#      - "8088:8088"
-#    networks:
-#      - s4g-network
-#    depends_on:
-#      - custommysql
-#      - eureka
-#      - auth
-#      - management
-#      - report
+  gateway:
+     image: noureddine7/forest_microservices-gateway
+     #build: ./gateway_service
+     container_name: gateway
+     ports:
+       - "8088:8088"
+     networks:
+       - s4g-network
+     depends_on:
+       - custommysql
+       - eureka
+       - auth
+       - management
+       - report
 
   custommysql:
     image: mysql:8
