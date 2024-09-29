@@ -1,0 +1,32 @@
+version: '3.5'
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    container_name: "mysql"
+    volumes:
+      - "./db:/var/lib/mysql"
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=production_testing
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=noureddine
+  web:
+    build: .
+    links:
+      - mysql
+    container_name: authentication_service
+    restart: on-failure
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_PORT=3306
+      - DB_NAME=production_testing
+      - DB_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_USER_PASSWORD=
+      - SPRING_PROFILES_ACTIVE=prod
+    depends_on:
+      - mysql
